@@ -69,5 +69,19 @@ module CronParser
 
       (range_start..range_end).step(step).to_a
     end
+
+    def list_parser(val, min, max)
+      result = []
+      val.split(',').each do |list_member|
+        if list_member.include?('-')
+          result << range_parser(list_member, min, max)
+        elsif list_member.size < 3
+          result << literal_parser(list_member, min, max)
+        else
+          raise "Invalid list expression: #{val}"
+        end
+      end
+      result.flatten.uniq.sort
+    end
   end
 end

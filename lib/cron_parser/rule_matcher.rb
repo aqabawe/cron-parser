@@ -18,13 +18,16 @@ module CronParser
         parser: 'wildcard_parser'
       },
       {
-        regex: Regexp.new('^\d*\-\d*(\/\d*)?$'),
+        regex: Regexp.new('^\d{1,2}\-\d{1,2}(\/\d{1,2})?$'),
         parser: 'range_parser'
       },
-
       {
-        regex: Regexp.new('^\d*$'),
+        regex: Regexp.new('^\d{1,2}$'),
         parser: 'literal_parser'
+      },
+      {
+        regex: Regexp.new('^(\d{1,2}|(\d{1,2}\-\d{1,2}))((,(\d{1,2}|(\d{1,2}\-\d{1,2})))+)$'),
+        parser: 'list_parser'
       }
     ].freeze
 

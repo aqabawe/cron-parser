@@ -80,4 +80,14 @@ class TestParser < Minitest::Test
       parser.parse
     end
   end
+
+  def test_list
+    parser = CronParser::Parser.new('1,5-10 1-2,4-6 1,2,3,20 1,5-6 1-4,2 bin/blabla')
+    parser.parse
+    assert_equal parser.result[:minutes], [1, 5, 6, 7, 8, 9, 10]
+    assert_equal parser.result[:hours], [1, 2, 4, 5, 6]
+    assert_equal parser.result[:day_month], [1, 2, 3, 20]
+    assert_equal parser.result[:month], [1, 5, 6]
+    assert_equal parser.result[:day_week], [1, 2, 3, 4]
+  end
 end
