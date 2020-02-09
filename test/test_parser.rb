@@ -43,7 +43,7 @@ class TestParser < Minitest::Test
     assert_equal parser.result[:hours], (0..23).to_a
     assert_equal parser.result[:day_month], (1..31).to_a
     assert_equal parser.result[:month], (1..12).to_a
-    assert_equal parser.result[:day_week], (0..7).to_a
+    assert_equal parser.result[:day_week], (0..6).to_a
   end
 
   def test_range

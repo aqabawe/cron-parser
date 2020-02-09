@@ -1,3 +1,4 @@
 #!/bin/bash
 bundle exec ruby test/test_parser.rb
 bundle exec ruby test/test_rule_matcher.rb
+bundle exec ruby test/test_decorater.rb

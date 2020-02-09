@@ -11,7 +11,7 @@ module CronParser
       { name: :hours, min: 0, max: 23 },
       { name: :day_month, min: 1, max: 31 },
       { name: :month, min: 1, max: 12 },
-      { name: :day_week, min: 0, max: 7 }
+      { name: :day_week, min: 0, max: 6 }
     ].freeze
 
     def initialize(expression)
