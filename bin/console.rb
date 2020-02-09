@@ -2,7 +2,6 @@
 
 # frozen_string_literal: true
 
-
 require_relative '../lib/cron_parser'
 require 'irb/completion'
 require 'irb'

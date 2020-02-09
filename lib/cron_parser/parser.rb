@@ -9,9 +9,9 @@ module CronParser
     PARTS = [
       { name: :minutes, min: 0, max: 59 },
       { name: :hours, min: 0, max: 23 },
-      { name: :day_month, min: 0, max: 31 },
-      { name: :month, min: 0, max: 12 },
-      { name: :day_week, min: 0, max: 7 },
+      { name: :day_month, min: 1, max: 31 },
+      { name: :month, min: 1, max: 12 },
+      { name: :day_week, min: 0, max: 7 }
     ].freeze
 
     def initialize(expression)
@@ -33,12 +33,7 @@ module CronParser
       space_split[0..4].each_with_index do |val, index|
         parser = RuleMatcher.match(val)
         part = PARTS[index]
-        @result[part[:name]] = self.send(
-          parser,
-          val,
-          part[:min],
-          part[:max]
-        )
+        @result[part[:name]] = send(parser, val, part[:min], part[:max])
       end
     end
 
@@ -49,7 +44,11 @@ module CronParser
         raise "Expression: #{val} is out of bounds"
       end
 
-      return [val]
+      [val]
+    end
+
+    def wildcard_parser(_val, min, max)
+      (min..max).to_a
     end
   end
 end

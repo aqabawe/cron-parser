@@ -14,6 +14,10 @@ module CronParser
   class RuleMatcher
     RULES = [
       {
+        regex: Regexp.new('^\*$'),
+        parser: 'wildcard_parser'
+      },
+      {
         regex: Regexp.new('^\d*$'),
         parser: 'literal_parser'
       }
@@ -22,9 +26,7 @@ module CronParser
     class << self
       def match(expression)
         RULES.each do |rule|
-          unless expression.match(rule[:regex]).nil?
-            return rule[:parser]
-          end
+          return rule[:parser] unless expression.match(rule[:regex]).nil?
         end
         raise "Expression: '#{expression}' did not match any rules"
       end
