@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require_relative '../lib/cron_parser'
+expression = ARGV[0] || ''
+parser = CronParser::Parser.new(expression)
+parser.parse
+decorator = CronParser::Decorater.new(parser.result)
+decorator.to_table
