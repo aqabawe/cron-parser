@@ -7,10 +7,10 @@ Simple Ruby library to parse cron expressions
 - To parse a cron expression: `docker-compose run app bin/cron-parser "*/15 0 1,15 * 1-5 /usr/bin/find"`
 - To run tests: `docker-compose run app bin/test
 
-## Compostion
-The librarby is composed of 3 main components, which can be found in [lib/cron_parser](https://github.com/aqabawe/cron-parser/tree/master/lib/cron_parser). Those components are:
+## Composition
+The library is composed of 3 main components, which can be found in [lib/cron_parser](https://github.com/aqabawe/cron-parser/tree/master/lib/cron_parser). Those components are:
 
-- Parser: Trasnforms the different expression components into values.
+- Parser: Transforms the different expression components into values.
 - Rule Matcher: Determines which cron rule to be applied on the expression component
 - Decorater: Displays the parsed expression in a user friendly format.
 
