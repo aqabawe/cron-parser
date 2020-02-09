@@ -50,5 +50,24 @@ module CronParser
     def wildcard_parser(_val, min, max)
       (min..max).to_a
     end
+
+    def range_parser(val, min, max)
+      step = 1
+      sections = val.split('/')
+      step = sections.last.to_i if sections.size > 1
+      # Step validations
+      raise "Step too large for #{val}" if step > max
+      raise "Step cannot be zero: #{val}" if step.zero?
+
+      range_start, range_end = sections.first.split('-').map(&:to_i)
+      # Range validation
+      [range_start, range_end].each do |bound|
+        unless bound >= min && bound <= max
+          raise "Expression: #{val} is out of bounds"
+        end
+      end
+
+      (range_start..range_end).step(step).to_a
+    end
   end
 end

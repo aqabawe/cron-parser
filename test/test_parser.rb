@@ -45,4 +45,39 @@ class TestParser < Minitest::Test
     assert_equal parser.result[:month], (1..12).to_a
     assert_equal parser.result[:day_week], (0..7).to_a
   end
+
+  def test_range
+    parser = CronParser::Parser.new('5-10 * * * 1-3 bin/blabla')
+    parser.parse
+    assert_equal parser.result[:minutes], (5..10).to_a
+    assert_equal parser.result[:day_week], (1..3).to_a
+  end
+
+  def test_invalid_range
+    assert_raises RuntimeError do
+      parser = CronParser::Parser.new('5-99 * * * 1-3 bin/blabla')
+      parser.parse
+    end
+  end
+
+  def test_range_step
+    parser = CronParser::Parser.new('5-20/5 * * * 1-6/2 bin/blabla')
+    parser.parse
+    assert_equal parser.result[:minutes], [5, 10, 15, 20]
+    assert_equal parser.result[:day_week], [1, 3, 5]
+  end
+
+  def test_range_zero_step
+    assert_raises RuntimeError do
+      parser = CronParser::Parser.new('5-20/0 * * * 1-6/2 bin/blabla')
+      parser.parse
+    end
+  end
+
+  def test_range_larger_than_max_step
+    assert_raises RuntimeError do
+      parser = CronParser::Parser.new('5-20/99 * * * 1-6/2 bin/blabla')
+      parser.parse
+    end
+  end
 end

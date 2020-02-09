@@ -18,6 +18,11 @@ module CronParser
         parser: 'wildcard_parser'
       },
       {
+        regex: Regexp.new('^\d*\-\d*(\/\d*)?$'),
+        parser: 'range_parser'
+      },
+
+      {
         regex: Regexp.new('^\d*$'),
         parser: 'literal_parser'
       }
