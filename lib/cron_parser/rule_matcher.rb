@@ -14,7 +14,7 @@ module CronParser
   class RuleMatcher
     RULES = [
       {
-        regex: Regexp.new('^\*$'),
+        regex: Regexp.new('^\*$|^(\*\/\d{1,2})$'),
         parser: 'wildcard_parser'
       },
       {

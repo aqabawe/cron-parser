@@ -47,8 +47,14 @@ module CronParser
       [val]
     end
 
-    def wildcard_parser(_val, min, max)
-      (min..max).to_a
+    def wildcard_parser(val, min, max)
+      step = 1
+      sections = val.split('/')
+      step = sections.last.to_i if sections.size > 1
+      # Step validations
+      raise "Step too large for #{val}" if step > max
+      raise "Step cannot be zero: #{val}" if step.zero?
+      (min..max).step(step).to_a
     end
 
     def range_parser(val, min, max)

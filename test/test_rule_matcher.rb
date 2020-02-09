@@ -18,6 +18,31 @@ class TestRuleMatcher < Minitest::Test
     end
   end
 
+  def test_correct_wildcard
+    assert_equal CronParser::RuleMatcher.match('*'), 'wildcard_parser'
+    assert_equal CronParser::RuleMatcher.match('*/5'), 'wildcard_parser'
+    assert_equal CronParser::RuleMatcher.match('*/12'), 'wildcard_parser'
+  end
+
+  def test_invalid_wildcard
+    assert_raises RuntimeError do
+      CronParser::RuleMatcher.match('*/')
+    end
+    assert_raises RuntimeError do
+      CronParser::RuleMatcher.match('*-1')
+    end
+    assert_raises RuntimeError do
+      CronParser::RuleMatcher.match('*-1/1')
+    end
+    assert_raises RuntimeError do
+      CronParser::RuleMatcher.match('*-/1')
+    end
+    assert_raises RuntimeError do
+      CronParser::RuleMatcher.match('*/999')
+    end
+  end
+
+
   def test_correct_ranges
     assert_equal CronParser::RuleMatcher.match('2-99'), 'range_parser'
     assert_equal CronParser::RuleMatcher.match('22-1'), 'range_parser'
@@ -37,7 +62,6 @@ class TestRuleMatcher < Minitest::Test
     assert_raises RuntimeError do
       CronParser::RuleMatcher.match('2-999')
     end
-
   end
 end
 
