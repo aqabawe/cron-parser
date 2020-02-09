@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/aqabawe/cron-parser.svg?branch=master)](https://travis-ci.org/aqabawe/cron-parser)
 # cron-parser
 Simple Ruby library to parse cron expressions
 
